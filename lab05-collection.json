@@ -1,0 +1,108 @@
+{
+  "info": {
+    "_postman_id": "c6cfdf59-7454-4482-b0be-2e08f15505bc",
+    "name": "Lab05",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "44812562",
+    "_collection_link": "https://go.postman.co/collection/44812562-c6cfdf59-7454-4482-b0be-2e08f15505bc?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Setup: идэвхтэй оюутан",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"status\": \"active\", \"coursesTaken\": [\"CS201\"]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/students/B231234567",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "students",
+            "B231234567"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Setup: CS313 хичээл:",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"prerequisites\": [\"CS201\"]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/courses/CS313",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "courses",
+            "CS313"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Амжилттай бүртгэл:",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Амжилттай бүртгэлд статус 201 ирнэ\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"Амжилттай бүртгэлд result нь OK байна\", function () {\r\n    pm.expect(pm.response.json().result).to.eql(\"OK\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"studentID\": \"B231234567\", \"courseID\": \"CS313\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/registrations",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "registrations"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ]
+}
