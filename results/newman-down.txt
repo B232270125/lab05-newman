@@ -1,0 +1,341 @@
+newman
+
+Lab05
+
+❏ S1 Happy path
+↳ Setup: оюутан S1_stu
+  PUT http://localhost:3000/students/S1_stu [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ Setup: хичээл S1_crs
+  PUT http://localhost:3000/courses/S1_crs [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ Идэвхтэй оюутан урьдач хангахад OK
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+  4⠄ JSONError in test-script
+
+❏ S2 Оюутан байхгүй
+↳ Setup: хичээл S2_crs
+  PUT http://localhost:3000/courses/S2_crs [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ Байхгүй оюутан бүртгүүлэхэд ERROR_NO_STUDENT
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+  7⠄ JSONError in test-script
+
+❏ S3 Идэвхгүй оюутан
+↳ Setup: оюутан S3_stu
+  PUT http://localhost:3000/students/S3_stu [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ Setup: хичээл S3_crs
+  PUT http://localhost:3000/courses/S3_crs [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ Идэвхгүй оюутан бүртгүүлэхэд ERROR_INACTIVE_STUDENT
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 11⠄ JSONError in test-script
+
+❏ S4 Хичээл байхгүй
+↳ Setup: оюутан S4_stu
+  PUT http://localhost:3000/students/S4_stu [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ Байхгүй хичээлд бүртгүүлэхэд ERROR_NO_COURSE
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 14⠄ JSONError in test-script
+
+❏ S5 Урьдач зарим нь дутуу
+↳ Setup: оюутан S5_stu
+  PUT http://localhost:3000/students/S5_stu [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ Setup: хичээл S5_crs
+  PUT http://localhost:3000/courses/S5_crs [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ Урьдач зарим нь дутуу үед ERROR_PREREQUISITES
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 18⠄ JSONError in test-script
+
+❏ S6 Давхар: оюутан ба хичээл байхгүй
+↳ Оюутан, хичээл хоёулаа байхгүй үед ERROR_NO_STUDENT
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 20⠄ JSONError in test-script
+
+❏ S7 Давхар: идэвхгүй ба урьдач дутуу
+↳ Setup: оюутан S7_stu
+  PUT http://localhost:3000/students/S7_stu [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ Setup: хичээл S7_crs
+  PUT http://localhost:3000/courses/S7_crs [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ Идэвхгүй оюутан урьдач дутуу үед ERROR_INACTIVE_STUDENT
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 24⠄ JSONError in test-script
+
+❏ S8 Урьдачгүй хичээл
+↳ Setup: оюутан S8_stu
+  PUT http://localhost:3000/students/S8_stu [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ Setup: хичээл S8_crs
+  PUT http://localhost:3000/courses/S8_crs [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ Урьдачгүй хичээлд бүртгүүлэхэд OK
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 28⠄ JSONError in test-script
+
+❏ S9 Хоосон coursesTaken
+↳ Setup: оюутан S9_stu
+  PUT http://localhost:3000/students/S9_stu [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ Setup: хичээл S9_crs
+  PUT http://localhost:3000/courses/S9_crs [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+
+↳ Хоосон coursesTaken үед ERROR_PREREQUISITES
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 32⠄ JSONError in test-script
+
+❏ S10 courseID дутуу
+↳ courseID дутуу үед ERROR_BAD_REQUEST
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 34⠄ JSONError in test-script
+
+❏ S11 studentID дутуу
+↳ studentID дутуу үед ERROR_BAD_REQUEST
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 36⠄ JSONError in test-script
+
+❏ S12 Буруу JSON
+↳ Буруу JSON үед ERROR_BAD_JSON
+  POST http://localhost:3000/registrations [errored]
+     connect ECONNREFUSED 127.0.0.1:3000
+ 38⠄ JSONError in test-script
+
+┌─────────────────────────┬──────────┬──────────┐
+│                         │ executed │   failed │
+├─────────────────────────┼──────────┼──────────┤
+│              iterations │        1 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│                requests │       26 │       26 │
+├─────────────────────────┼──────────┼──────────┤
+│            test-scripts │       12 │       12 │
+├─────────────────────────┼──────────┼──────────┤
+│      prerequest-scripts │        0 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│              assertions │        0 │        0 │
+├─────────────────────────┴──────────┴──────────┤
+│ total run duration: 352ms                     │
+├───────────────────────────────────────────────┤
+│ total data received: 0B (approx)              │
+└───────────────────────────────────────────────┘
+
+[31m   # [39m[31m failure   [39m[31m detail                                                                                                 [39m
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 01.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 02.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 03.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 04.  JSONError                                                                                                         
+                 "undefined" is not valid JSON                                                                          
+                 at test-script                                                                                         
+                 inside "S1 Happy path / Идэвхтэй оюутан урьдач хангахад OK"                                            
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 05.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 06.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 07.  JSONError                                                                                                         
+                 "undefined" is not valid JSON                                                                          
+                 at test-script                                                                                         
+                 inside "S2 Оюутан байхгүй / Байхгүй оюутан бүртгүүлэхэд ERROR_NO_STUDENT"                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 08.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 09.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 10.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 11.  JSONError                                                                                                         
+                 "undefined" is not valid JSON                                                                          
+                 at test-script                                                                                         
+                 inside "S3 Идэвхгүй оюутан / Идэвхгүй оюутан бүртгүүлэхэд ERROR_INACTIVE_STUDENT"                      
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 12.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 13.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 14.  JSONError                                                                                                         
+                 "undefined" is not valid JSON                                                                          
+                 at test-script                                                                                         
+                 inside "S4 Хичээл байхгүй / Байхгүй хичээлд бүртгүүлэхэд ERROR_NO_COURSE"                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 15.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 16.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 17.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 18.  JSONError                                                                                                         
+                 "undefined" is not valid JSON                                                                          
+                 at test-script                                                                                         
+                 inside "S5 Урьдач зарим нь дутуу / Урьдач зарим нь дутуу үед ERROR_PREREQUISITES"                      
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 19.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 20.  JSONError                                                                                                         
+                 "undefined" is not valid JSON                                                                          
+                 at test-script                                                                                         
+                 inside "S6 Давхар: оюутан ба хичээл байхгүй / Оюутан, хичээл хоёулаа байхгүй үед ERROR_NO_STUDENT"     
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 21.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 22.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 23.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 24.  JSONError                                                                                                         
+                 "undefined" is not valid JSON                                                                          
+                 at test-script                                                                                         
+                 inside "S7 Давхар: идэвхгүй ба урьдач дутуу / Идэвхгүй оюутан урьдач дутуу үед ERROR_INACTIVE_STUDENT" 
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 25.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 26.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 27.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 28.  JSONError                                                                                                         
+                 "undefined" is not valid JSON                                                                          
+                 at test-script                                                                                         
+                 inside "S8 Урьдачгүй хичээл / Урьдачгүй хичээлд бүртгүүлэхэд OK"                                       
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 29.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 30.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 31.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 32.  JSONError                                                                                                         
+                 "undefined" is not valid JSON                                                                          
+                 at test-script                                                                                         
+                 inside "S9 Хоосон coursesTaken / Хоосон coursesTaken үед ERROR_PREREQUISITES"                          
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 33.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 34.  JSONError                                                                                                         
+                 "undefined" is not valid JSON                                                                          
+                 at test-script                                                                                         
+                 inside "S10 courseID дутуу / courseID дутуу үед ERROR_BAD_REQUEST"                                     
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 35.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 36.  JSONError                                                                                                         
+                 "undefined" is not valid JSON                                                                          
+                 at test-script                                                                                         
+                 inside "S11 studentID дутуу / studentID дутуу үед ERROR_BAD_REQUEST"                                   
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 37.  Error                                                                                                             
+                 connect ECONNREFUSED 127.0.0.1:3000                                                                    
+                 at request                                                                                             
+                 inside ""                                                                                              
+[90m     [39m[90m           [39m[90m                                                                                                        [39m
+ 38.  JSONError                                                                                                         
+                 "undefined" is not valid JSON                                                                          
+                 at test-script                                                                                         
+                 inside "S12 Буруу JSON / Буруу JSON үед ERROR_BAD_JSON"                                                
