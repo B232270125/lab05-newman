@@ -56,3 +56,30 @@ $ newman -v
 | S12 | Хязгаар | Буруу JSON бие | 400 | `ERROR_BAD_JSON` |
 
 Давхар алдааны хүлээгдэх үр дүн (S6, S7) нь `server.js`-ийн шалгалтын дараалалтай (оюутан байгаа эсэх, идэвхтэй эсэх, хичээл байгаа эсэх, урьдач) нийцсэн.
+
+## Collection
+
+`lab05-collection.json` нь 12 folder (S1-S12) агуулна. Folder бүр өөрийн setup PUT-тай, өөр өөр ID (`S1_stu`, `S1_crs` гэх мэт) ашигладаг тул тест бүр бие даасан. `registrationID`-ийн яг утгыг биш, зөвхөн тоо мөн эсэхийг шалгасан. Нийт 26 request, 12 test-script, **28 assertion**.
+
+## Newman ажиллуулалтын үр дүн
+
+| Ажиллуулалт | Файл | assertions executed | assertions failed | exit code |
+|---|---|---|---|---|
+| PASS | `results/newman-pass.txt` | 28 | 0 | 0 |
+| FAIL | `results/newman-fail.txt` | 28 | 1 | 1 |
+| DOWN | `results/newman-down.txt` | 0 | 0 (26 request errored) | 1 |
+| Нийтийн API (нэмэлт) | `results/newman-public.txt` | 3 | 0 | 0 |
+
+- **PASS**: 12 спецификаци бүгд хүлээгдсэнээр ажиллав. S6, S7 (давхар алдаа)-ын бодит үр дүн `server.js`-ийн шалгалтын дараалалтай таарав: оюутан байгаа эсэх, идэвхтэй эсэх, хичээл байгаа эсэх, урьдач.
+- **FAIL**: `lab05-collection-fail.json`-д S1-ийн статусын oracle-ыг зориуд 201-ийн оронд 200 гэж хүлээлгэсэн. Сервер 201 буцааснаар 1 assertion fail болж, exit code 1 гарав. Ингэж CI quality gate шалгалтыг амжилтгүй болгодог. Үндсэн `lab05-collection.json` зөв хэвээр үлдсэн.
+- **DOWN**: сервер унтарсан үед `ECONNREFUSED` гарч, 26 request бүгд errored болов. Assertion нэг ч ажиллаагүй (0 executed).
+
+### FAIL ба DOWN-ын ялгаа
+
+FAIL нь сервер хариу өгсөн боловч oracle хүлээсэн утгатай таарахгүй байсан oracle-ийн алдаа бол DOWN нь сервертэй холбогдож чадаагүй интерфейсийн алдаа бөгөөд тэнд assertion огт ажиллаагүй.
+
+## Даалгавар 5: Нийтийн API
+
+`lab05-public-api.json` нь `https://jsonplaceholder.typicode.com/users` руу GET хийж 3 oracle шалгана (статус 200, массив эсэх, эхний хэрэглэгчийн нэр `Leanne Graham`). 3 assertion бүгд PASS, exit 0.
+
+Энэ нь GET-only тул setup хэрэггүй, нэг request-ээр шалгагдсан учир өөрийн API-аас хялбар байсан. Харин өөрийн API дээр тест бүрд setup PUT хийж, бие даасан байлгах хэрэгтэй байсан.
